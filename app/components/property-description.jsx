@@ -1,7 +1,7 @@
 import Image from "next/image";
-import Copy from "../../public/icons/copy.svg";
-import Crop from "../../public/icons/crop.svg";
-import Money from "../../public/icons/money.svg";
+import Copy from "@/public/icons/Copy.svg";
+import Crop from "@/public/icons/Crop.svg";
+import Money from "@/public/icons/Money.svg";
 
 export const PropertyDescription = ({ property }) => {
     return (
