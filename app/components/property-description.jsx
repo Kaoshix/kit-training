@@ -3,7 +3,6 @@ import Image from "next/image";
 import Copy from "@/public/icons/Copy.svg";
 import Crop from "@/public/icons/Crop.svg";
 import Money from "@/public/icons/Money.svg";
-import Pin from "@/public/icons/Pin.svg";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
