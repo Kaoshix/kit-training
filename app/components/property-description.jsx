@@ -1,36 +1,63 @@
+'use client';
 import Image from "next/image";
 import Copy from "@/public/icons/Copy.svg";
 import Crop from "@/public/icons/Crop.svg";
 import Money from "@/public/icons/Money.svg";
+import Pin from "@/public/icons/Pin.svg";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 export const PropertyDescription = ({ property }) => {
+
+    const { Name, PostalCode, City, NbRoomsMin, NbRoomsMax, Price, Longitude, Latitude } = property;
+
+    const [transport, setTransport] = useState([]);
+
+    useEffect(() => {
+        const callAPI = async () => {
+            try {
+                axios.get(`https://preprod.kitlenid.fr/api/transport?lon=${Longitude}&lat=${Latitude}`).then((response) => {
+                    setTransport(response.data);
+                })
+            }
+            catch (error) {
+                console.error(error);
+            }
+        }
+        callAPI();
+    }, [])
+
     return (
         <ul>
-            <li className="text-lg font-bold text-card-title">{property.Name}</li>
-            <li className="text-card-sub-text">{property.PostalCode} {property.City}</li>
-            <li>transport en commun à proximité</li>
+            <li className="text-lg font-bold text-card-title">{Name}</li>
+            <li className="text-card-sub-text">{PostalCode} {City}</li>
+            <li className="flex gap-3">{transport && transport.map((transpo, index) => (
+                <span key={index}>{
+                    transpo.ligne
+                }</span>
+            ))}</li>
             <li className="flex gap-2">
                 <Image
                     src={Copy}
-                    alt="NbPcsIcon"
+                    alt="copyIcon"
                     width={17}
                     height={17}
                 />
-                de {property.NbRoomsMin} à {property.NbRoomsMax} pièces</li>
+                {NbRoomsMin === NbRoomsMax ? `${NbRoomsMax} pièces` : `de ${NbRoomsMin} à ${NbRoomsMax} pièces`}</li>
             <li className="flex gap-2">
                 <Image
                     src={Crop}
-                    alt="NbPcsIcon"
+                    alt="cropIcon"
                     width={17}
                     height={17}
                 />
-                <span className="text-card-sub-text">A partir de</span> {property.Price} €
+                <span className="text-card-sub-text">A partir de</span> {Price} €
             </li>
 
             <li className="flex gap-2 text-sub-price">
                 <Image
                     src={Money}
-                    alt="NbPcsIcon"
+                    alt="moneyIcon"
                     width={17}
                     height={17}
                 />

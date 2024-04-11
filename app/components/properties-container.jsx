@@ -3,21 +3,6 @@ import { FetchProperties } from "../utils/fetch-properties";
 
 export const PropertiesContainer = ({ firstProperties }) => {
 
-    const callAPI = async () => {
-        try {
-            firstProperties.map(async (property) => {
-                const response = await fetch(`https://preprod.kitlenid.fr/api/transport?lon=${property.Longitude}&lat=${property.Latitude}`);
-                const data = await response.json();
-                console.log(data);
-            })
-        }
-        catch (error) {
-            console.error(error);
-        }
-    }
-
-    callAPI();
-
     // async function fetch() {
     //     const properties = await FetchProperties(12, 24);
     // }
