@@ -30,11 +30,14 @@ export const PropertyDescription = ({ property }) => {
         <ul>
             <li className="text-lg font-bold text-card-title">{Name}</li>
             <li className="text-card-sub-text">{PostalCode} {City}</li>
-            <li className="flex gap-3">{transport && transport.map((transpo, index) => (
-                <span key={index}>{
-                    transpo.ligne
-                }</span>
-            ))}</li>
+            {transport.length > 0 ? (
+                <li className="flex gap-3">{transport && transport.map((transpo, index) => (
+                    <span key={index}>{
+                        transpo.ligne
+                    }</span>
+                ))}</li>
+            ) : <li className="h-[24px]"></li>}
+
             <li className="flex gap-2">
                 <Image
                     src={Copy}
